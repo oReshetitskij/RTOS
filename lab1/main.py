@@ -28,8 +28,14 @@ def main():
     # check d'Alambert ratio
     x0 = math.inf
     ratio_limit = limit((x + 7) ** (-1/3) / ((x + 6) ** (-1/3)), x, x0)
-    is_convergent = ratio_limit == 1
-    print("d'Alembert ratio: %s | %s" % (terms[n - 1] / terms[n - 2], "convergent" if is_convergent else "can't state"))
+
+    convergence = "divergent"
+    if ratio_limit < 1:
+        convergence = "convergent"
+    elif ratio_limit == 1:
+        convergence = "can't state"
+
+    print("d'Alembert ratio: %s | %s" % (convergence, terms[n - 1] / terms[n - 2]))
 
     # check Cauchy ratio
     I = integrate((x + 6) ** (-1 / 3), x, (x, 1, oo))
